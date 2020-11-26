@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./shell.css";
-import { Header } from "./header";
+import Header from "./header";
 import RouterComponent from "./navigator";
 
 class Shell extends Component {
@@ -12,7 +12,7 @@ class Shell extends Component {
           <Header
             headerClass="Header"
             headerLeft="HeaderLeft"
-            headerRight='HeaderRight'
+            headerRight="HeaderRight"
             textClass="App-name"
           />
         </div>
