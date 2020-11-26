@@ -1,0 +1,43 @@
+.ProductContainer {
+  position: absolute;
+  top: 7%; /*This is in relation with header and navigator body*/
+  left: 0;
+  display: flex;
+  justify-content: center;
+  height: 93%;
+  width: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.Product {
+  margin: 1%;
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.ProductInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+span {
+  color: #555;
+  margin-top: 2%;
+}
+.Field {
+  font-size: 20px;
+  font-weight: bold;
+}
+.Value {
+  font-size: 20px;
+}
+.CardContent{
+  position: relative;
+}
+.ButtonWrapper {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+}
