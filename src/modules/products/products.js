@@ -16,9 +16,8 @@ import { getHeaderRef } from "../shell/header";
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      productList: [],
-    };
+
+    this.state = { productList: [] };
   }
 
   async componentDidMount() {
@@ -31,8 +30,23 @@ class Product extends Component {
     };
     try {
       const response = await fetchHelper(options, endpoint);
-      console.log("Response products---->", response);
+
       if (response.statusCode >= 200 || response.statusCode <= 300) {
+        const productList = getItem(PRODUCTS_STORAGE_KEY) || [];
+
+        if (productList.length)
+          for (let i = 0; i < response.data.length; i++) {
+            const data = response.data[i];
+            for (let j = 0; j < productList.length; j++) {
+              const product = productList[j];
+              
+              // Merge the products if found
+              if (product.productID === data.productID) {
+                response.data[i] = product;
+                break;
+              }
+            }
+          }
         this.setState({ productList: response.data });
       }
     } catch (error) {

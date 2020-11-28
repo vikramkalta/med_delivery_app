@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ShoppingCart } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 import "./shell.css";
 import { getItem, PRODUCTS_STORAGE_KEY } from "../../utils";
@@ -10,7 +11,9 @@ class Header extends Component {
   constructor() {
     super();
     ref = this;
-    this.state = { counter: 0 };
+
+    const storedItems = getItem(PRODUCTS_STORAGE_KEY);
+    this.state = { counter: storedItems ? storedItems.length : 0 };
   }
 
   // This is called from Product component's add button
@@ -18,6 +21,8 @@ class Header extends Component {
     const storedItems = getItem(PRODUCTS_STORAGE_KEY);
     this.setState({ counter: storedItems ? storedItems.length : 0 });
   }
+
+  onClickCart() {}
 
   renderCounter() {
     if (!this.state.counter) return null;
@@ -32,14 +37,23 @@ class Header extends Component {
     const { headerClass, headerLeft, headerRight, textClass } = this.props;
     return (
       <div className={headerClass}>
-        <div className={headerLeft}>
-          <img src="medicine-delivery.webp" height="30px" width="30px" />
-          <span>&nbsp;&nbsp;</span>
-          <h3 className={textClass}>{"Medicine on wheels"}</h3>
-        </div>
+        <Link to="/">
+          <div className={headerLeft}>
+            <img
+              src="medicine-delivery.webp"
+              height="30px"
+              width="30px"
+              alt="Medicine delivery logo"
+            />
+            <span>&nbsp;&nbsp;</span>
+            <h3 className={textClass}>{"Medicine on wheels"}</h3>
+          </div>
+        </Link>
 
         <div className={headerRight}>
-          <ShoppingCart fontSize={"large"} />
+          <Link to={this.state.counter > 0 ? "/cart" : "#"}>
+            <ShoppingCart fontSize={"large"} />
+          </Link>
 
           {this.renderCounter()}
         </div>

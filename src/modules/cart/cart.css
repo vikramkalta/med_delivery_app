@@ -1,0 +1,141 @@
+.ContainerCart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.ContainerCartProducts {
+  position: fixed;
+  height: 65%;
+  width: 40%;
+  overflow: auto;
+}
+
+.CardContainer {
+  margin:0px auto;
+  height:150px;
+  width:400px;
+}
+.CardCart {
+  width: 100%;
+  margin-top: 1%;
+}
+.CardContentCart{
+  position: relative;
+}
+.QuantityControllerContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  bottom: 2%;
+  right: 2%;
+}
+.Icon {
+  cursor: pointer;
+}
+.OrderSummary {  
+  position: absolute;
+  top: 75%;
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.OrderSummary {
+  position: absolute;
+  padding: 1%;
+  top: 75%;
+  height: 30%;
+  width: 100%;
+  border-top: 1px solid #eaeaec;
+}
+.OrderSummaryInfo {
+  background-color: #d9eff3 !important;
+  margin:0px auto;
+  width: 400px;
+  height: 70%;
+}
+.CardContentCartPlaceorder {
+  position: relative;
+  background-color: #d9eff3;
+}
+.PlaceOrderButton {
+  position: absolute;
+  bottom: 4%;
+  right: 2%;
+  height: 50px;
+  width: 100px;
+}
+.PlaceOrderButtonText {
+  color:rgba(63, 81, 181, 0.5);
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/*MODAL STYLING*/
+.ModalContainer {
+  position: absolute;
+  top: 10%;
+  left: calc(50% - 250px);
+  height: 70%;
+  width: 500px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.ModalHeader {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 3%;
+  border-bottom: 2px solid #eaeaec;
+}
+.ContactDetails {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3%;
+}
+.Address {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3%;
+}
+.AddAddressButtonWrapper {
+  flex: 1;
+  /* background-color: black; */
+}
+
+.HeaderText {
+  color: #555;
+  font-size: medium;
+  font-weight: bold;
+}
+.Title {
+  color: #555;
+  font-size: small;
+  font-weight: bold;
+}
+input[type=text] {
+  width: 97%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #eaeaec;
+}
+.AddAddressButtonWrapper {
+  padding-left: 3%;
+  width: 94%;
+}
+.ModalButton {
+ width: 100%;
+ height: 95%;
+}
+.ModalButtonText {
+  color: #fff;
+  font-weight: bold;
+  font-size: large;
+}
