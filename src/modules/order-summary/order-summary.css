@@ -1,0 +1,65 @@
+.OrderSummaryContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OrderSummaryCard {
+  width: 40%;
+  height: 80%;
+}
+.OrderSummaryCardContent {
+  /* position: relative; */
+  height: 90%;
+}
+
+.OrderSummaryListContainer {
+  height: calc(70% - 50px);
+  /* position: absolute; */
+  width: 100%;
+  overflow-y: auto;
+}
+.TotalPayableContainer {
+  height: 30%;
+  width: 100%;
+}
+.ConfirmOrderContainer {
+  height: 50px;
+  width: 100%;
+  padding-top: 3%;
+  /* position: relative; */
+  /* background-color: red; */
+}
+.ConfirmOrderButton {
+  float: right;
+}
+.ConfirmOrderButtonText {
+  color: #fff;
+}
+.TotalPayableInfo{
+  margin-top: 3%;
+  border: 1px solid #cec6c6;
+  height: 100px;
+}
+.TextHolder {
+  margin: 2%;
+}
+.Table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.Label {
+  font-family: arial, sans-serif;
+  font-weight: bold;
+}

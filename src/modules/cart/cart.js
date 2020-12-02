@@ -5,14 +5,22 @@ import Button from "@material-ui/core/Button";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Modal from "@material-ui/core/Modal";
+import { withRouter } from "react-router-dom";
 
 import "./cart.css";
 
-import { getItem, setItem, PRODUCTS_STORAGE_KEY } from "../../utils";
+import {
+  getItem,
+  setItem,
+  PRODUCTS_STORAGE_KEY,
+  SAVED_ADDRESS_ID,
+  fetchHelper,
+} from "../../utils";
 
 class Cart extends Component {
   constructor() {
     super();
+
     const cartProducts = getItem(PRODUCTS_STORAGE_KEY);
     this.state = {
       cartProducts,
@@ -77,7 +85,7 @@ class Cart extends Component {
     const { cartProducts } = this.state;
 
     if (cartProducts && cartProducts.length) {
-      console.log("cartProducts----->", cartProducts);
+      // console.log("cartProducts----->", cartProducts);
       return cartProducts.map((product, i) => (
         <div className="CardContainer" key={i.toString()}>
           <Card className="CardCart">
@@ -194,6 +202,69 @@ class Cart extends Component {
     this.setState({ [type]: event.target.value });
   }
 
+  async onClickSaveAddress() {
+    // Save address and order summary to backend
+    try {
+      const saveAddressEndpoint = "api/address";
+
+      const body = {
+        contactName: this.state.name,
+        contactNumber: this.state.mobile,
+        pincode: this.state.pincode,
+        streetAddress: this.state.address,
+        city: this.state.city,
+        state: this.state.state || 'Maharashtra',
+      };
+      const saveAddressOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      };
+      const saveAddressResponse = await fetchHelper(
+        saveAddressOptions,
+        saveAddressEndpoint
+      );
+      // console.log("saveAddressResponse", saveAddressResponse);
+      if (saveAddressResponse.statusCode !== 200) {
+        throw "Error occured while saving address";
+      }
+      setItem(SAVED_ADDRESS_ID, saveAddressResponse.data);
+
+      const storedProducts = getItem(PRODUCTS_STORAGE_KEY);
+
+      const finalProducts = [];
+      for (let i = 0; i < storedProducts.length; i++) {
+        finalProducts.push({
+          addressID: saveAddressResponse.data,
+          productID: storedProducts[i].productID,
+          quantity: storedProducts[i].quantity || 1,
+        });
+      }
+
+      const saveCartProductsEndpoint = "api/cart-product";
+      const saveFinalProductOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalProducts),
+      };
+      const saveCartProductsResponse = await fetchHelper(
+        saveFinalProductOptions,
+        saveCartProductsEndpoint
+      );
+      // console.log("saveCartProductsResponse", saveCartProductsResponse);
+      if (saveCartProductsResponse.statusCode !== 200) {
+        throw "Error occured while saving cart products";
+      }
+      // Navigate to Confirm order screen
+      this.props.history.push("/order-summary");
+    } catch (error) {
+      console.log("Error occured while saving address[catch-block]", error);
+      throw error;
+    }
+  }
+
   renderModalBody() {
     return (
       <div className="ModalContainer">
@@ -262,7 +333,12 @@ class Cart extends Component {
         </div>
 
         <div className="AddAddressButtonWrapper">
-          <Button className="ModalButton" variant="contained" color="secondary">
+          <Button
+            className="ModalButton"
+            variant="contained"
+            color="secondary"
+            onClick={() => this.onClickSaveAddress()}
+          >
             <span className="ModalButtonText">{"ADD ADDRESS"}</span>
           </Button>
         </div>
@@ -288,4 +364,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default withRouter(Cart);
